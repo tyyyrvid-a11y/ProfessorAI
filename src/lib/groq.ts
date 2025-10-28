@@ -1,11 +1,13 @@
 import Groq from "groq-sdk";
 
-export const getGroqCompletion = async (apiKey: string, prompt: string) => {
-  if (!apiKey) {
+const GROQ_API_KEY = "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";
+
+export const getGroqCompletion = async (prompt: string) => {
+  if (!GROQ_API_KEY) {
     throw new Error("Groq API key is not set.");
   }
 
-  const groq = new Groq({ apiKey, dangerouslyAllowBrowser: true });
+  const groq = new Groq({ apiKey: GROQ_API_KEY, dangerouslyAllowBrowser: true });
 
   try {
     const completion = await groq.chat.completions.create({

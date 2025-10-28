@@ -5,13 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { useApiKey } from "@/context/ApiKeyContext";
 import { getGroqCompletion } from "@/lib/groq";
 import { showError } from "@/utils/toast";
 import { LoaderCircle } from "lucide-react";
 
 const QuestionGenerator = () => {
-  const { apiKey } = useApiKey();
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState("");
   const [formData, setFormData] = useState({
@@ -32,17 +30,13 @@ const QuestionGenerator = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!apiKey) {
-      showError("API Key is not set.");
-      return;
-    }
     setLoading(true);
     setResult("");
 
     const prompt = `Crie ${formData.numQuestions} questões do tipo "${formData.questionType}" para uma prova de ${formData.subject} sobre o tópico "${formData.topic}". Inclua as respostas corretas.`;
 
     try {
-      const completion = await getGroqCompletion(apiKey, prompt);
+      const completion = await getGroqCompletion(prompt);
       setResult(completion);
     } catch (error) {
       showError("Failed to generate questions.");

@@ -1,7 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { Book, BotMessageSquare, FileQuestion, Languages, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ApiKeyModal } from "./ApiKeyModal";
 
 const navigation = [
   { name: "Gerador de Questões", href: "/", icon: FileQuestion },
@@ -14,7 +13,6 @@ const navigation = [
 export function Layout() {
   return (
     <div className="flex min-h-screen w-full">
-      <ApiKeyModal />
       <aside className="w-64 flex-shrink-0 border-r bg-gray-50">
         <div className="flex h-full flex-col">
           <div className="p-4">

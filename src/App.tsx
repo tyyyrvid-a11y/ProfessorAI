@@ -10,29 +10,26 @@ import LessonPlanGenerator from "./pages/LessonPlanGenerator";
 import Translator from "./pages/Translator";
 import Chatbot from "./pages/Chatbot";
 import ActivityGenerator from "./pages/ActivityGenerator";
-import { ApiKeyProvider } from "./context/ApiKeyContext";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <ApiKeyProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<QuestionGenerator />} />
-              <Route path="lesson-plan" element={<LessonPlanGenerator />} />
-              <Route path="translator" element={<Translator />} />
-              <Route path="chatbot" element={<Chatbot />} />
-              <Route path="activity-generator" element={<ActivityGenerator />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </ApiKeyProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<QuestionGenerator />} />
+            <Route path="lesson-plan" element={<LessonPlanGenerator />} />
+            <Route path="translator" element={<Translator />} />
+            <Route path="chatbot" element={<Chatbot />} />
+            <Route path="activity-generator" element={<ActivityGenerator />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );
