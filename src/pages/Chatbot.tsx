@@ -86,12 +86,11 @@ const Chatbot = () => {
                   )}
                 >
                   {message.role === "assistant" ? (
-                    <ReactMarkdown
-                      className="prose prose-sm dark:prose-invert max-w-none"
-                      remarkPlugins={[remarkGfm]}
-                    >
-                      {message.content}
-                    </ReactMarkdown>
+                    <div className="prose prose-sm dark:prose-invert max-w-none">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {message.content}
+                      </ReactMarkdown>
+                    </div>
                   ) : (
                     <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                   )}
