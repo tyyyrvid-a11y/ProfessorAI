@@ -33,10 +33,11 @@ const QuestionGenerator = () => {
     setLoading(true);
     setResult("");
 
-    const prompt = `Crie ${formData.numQuestions} questões do tipo "${formData.questionType}" para uma prova de ${formData.subject} sobre o tópico "${formData.topic}". Inclua as respostas corretas.`;
+    const userPrompt = `Crie ${formData.numQuestions} questões do tipo "${formData.questionType}" para uma prova de ${formData.subject} sobre o tópico "${formData.topic}". Inclua as respostas corretas.`;
+    const systemPrompt = "Você é um especialista na criação de avaliações educacionais. Sua tarefa é gerar questões de prova de alta qualidade com base nas especificações do usuário. Formate a saída de forma clara, separando cada questão e sua respectiva resposta. Sempre inclua as respostas corretas.";
 
     try {
-      const completion = await getGroqCompletion(prompt);
+      const completion = await getGroqCompletion(userPrompt, systemPrompt);
       setResult(completion);
     } catch (error) {
       showError("Failed to generate questions.");

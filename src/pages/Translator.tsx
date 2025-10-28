@@ -34,10 +34,11 @@ const Translator = () => {
     setLoading(true);
     setResult("");
 
-    const prompt = `Traduza o seguinte texto para ${formData.targetLanguage}. Retorne apenas o texto traduzido, sem nenhuma explicação ou formatação adicional:\n\n"${formData.text}"`;
+    const userPrompt = `Traduza o seguinte texto para ${formData.targetLanguage}:\n\n"${formData.text}"`;
+    const systemPrompt = "Você é um tradutor multilíngue altamente preciso e fluente. Sua única função é traduzir o texto fornecido para o idioma de destino especificado. Você deve retornar *apenas* o texto traduzido, sem nenhuma explicação, saudação, formatação ou texto introdutório como 'Aqui está a tradução:'.";
 
     try {
-      const completion = await getGroqCompletion(prompt);
+      const completion = await getGroqCompletion(userPrompt, systemPrompt);
       setResult(completion);
     } catch (error) {
       showError("Falha ao traduzir o texto.");

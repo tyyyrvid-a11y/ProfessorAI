@@ -28,10 +28,11 @@ const LessonPlanGenerator = () => {
     setLoading(true);
     setResult("");
 
-    const prompt = `Crie um plano de aula detalhado para a matéria de "${formData.subject}", sobre o tópico "${formData.topic}", para alunos da série "${formData.grade}". A aula deve ter uma duração de aproximadamente "${formData.duration}". O plano de aula deve incluir objetivos, materiais necessários, atividades passo a passo e uma forma de avaliação.`;
+    const userPrompt = `Crie um plano de aula detalhado para a matéria de "${formData.subject}", sobre o tópico "${formData.topic}", para alunos da série "${formData.grade}". A aula deve ter uma duração de aproximadamente "${formData.duration}". O plano de aula deve incluir objetivos, materiais necessários, atividades passo a passo e uma forma de avaliação.`;
+    const systemPrompt = "Você é um especialista em pedagogia, especializado em design curricular. Seu objetivo é criar planos de aula detalhados, estruturados e envolventes, formatados em Markdown para fácil leitura. Siga os requisitos do usuário para matéria, tópico, nível de ensino e duração.";
 
     try {
-      const completion = await getGroqCompletion(prompt);
+      const completion = await getGroqCompletion(userPrompt, systemPrompt);
       setResult(completion);
     } catch (error) {
       showError("Failed to generate lesson plan.");

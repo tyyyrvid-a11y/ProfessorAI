@@ -2,7 +2,9 @@ import Groq from "groq-sdk";
 
 const GROQ_API_KEY = "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";
 
-export const getGroqCompletion = async (prompt: string) => {
+const DEFAULT_SYSTEM_PROMPT = "You are a helpful assistant designed for teachers.";
+
+export const getGroqCompletion = async (userPrompt: string, systemPrompt: string = DEFAULT_SYSTEM_PROMPT) => {
   if (!GROQ_API_KEY) {
     throw new Error("Groq API key is not set.");
   }
@@ -14,11 +16,11 @@ export const getGroqCompletion = async (prompt: string) => {
       messages: [
         {
           role: "system",
-          content: "You are a helpful assistant designed for teachers.",
+          content: systemPrompt,
         },
         {
           role: "user",
-          content: prompt,
+          content: userPrompt,
         },
       ],
       model: "openai/gpt-oss-120b",

@@ -42,10 +42,11 @@ const Chatbot = () => {
     setInput("");
     setLoading(true);
 
-    const prompt = `Você é um chatbot assistente para professores. Um usuário disse: "${input}". Responda de forma útil e concisa, sempre formatando sua resposta em Markdown para melhor organização e clareza. O histórico recente da conversa é:\n${messages.slice(-4).map(m => `${m.role}: ${m.content}`).join('\n')}`;
+    const userPrompt = `O histórico da conversa é:\n${messages.slice(-4).map(m => `${m.role}: ${m.content}`).join('\n')}\n\nMinha nova mensagem é: "${input}"`;
+    const systemPrompt = "Você é um assistente de IA prestativo e amigável para professores. Seu objetivo é responder a perguntas, fornecer sugestões e ajudar com várias tarefas relacionadas ao ensino. Responda diretamente à última mensagem do usuário, usando o histórico como contexto. Sempre formate suas respostas em Markdown para clareza e organização.";
 
     try {
-      const aiResponse = await getGroqCompletion(prompt);
+      const aiResponse = await getGroqCompletion(userPrompt, systemPrompt);
       const assistantMessage: Message = { role: "assistant", content: aiResponse };
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {

@@ -33,10 +33,11 @@ const ActivityGenerator = () => {
     setLoading(true);
     setResult("");
 
-    const prompt = `Crie uma atividade do tipo "${formData.activityType.replace(/_/g, ' ')}" para a matéria de "${formData.subject}", sobre o tópico "${formData.topic}", para alunos da série "${formData.grade}". A atividade deve ser criativa, engajadora e incluir instruções claras para os alunos e, se aplicável, uma chave de resposta para o professor.`;
+    const userPrompt = `Crie uma atividade do tipo "${formData.activityType.replace(/_/g, ' ')}" para a matéria de "${formData.subject}", sobre o tópico "${formData.topic}", para alunos da série "${formData.grade}". A atividade deve ser criativa, engajadora e incluir instruções claras para os alunos e, se aplicável, uma chave de resposta para o professor.`;
+    const systemPrompt = "Você é um designer instrucional criativo que desenvolve atividades de aprendizagem divertidas e eficazes para os alunos. Gere uma atividade com base na solicitação do usuário, garantindo que seja envolvente, apropriada para a idade e inclua instruções claras. Formate a atividade usando Markdown para uma boa apresentação.";
 
     try {
-      const completion = await getGroqCompletion(prompt);
+      const completion = await getGroqCompletion(userPrompt, systemPrompt);
       setResult(completion);
     } catch (error) {
       showError("Failed to generate activity.");
