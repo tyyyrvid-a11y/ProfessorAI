@@ -6,6 +6,8 @@ import { getGroqCompletion } from "@/lib/groq";
 import { showError } from "@/utils/toast";
 import { LoaderCircle, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface Message {
   role: "user" | "assistant";
@@ -40,7 +42,7 @@ const Chatbot = () => {
     setInput("");
     setLoading(true);
 
-    const prompt = `Você é um chatbot assistente para professores. Um usuário disse: "${input}". Responda de forma útil e concisa. O histórico recente da conversa é:\n${messages.slice(-4).map(m => `${m.role}: ${m.content}`).join('\n')}`;
+    const prompt = `Você é um chatbot assistente para professores. Um usuário disse: "${input}". Responda de forma útil e concisa, sempre formatando sua resposta em Markdown para melhor organização e clareza. O histórico recente da conversa é:\n${messages.slice(-4).map(m => `${m.role}: ${m.content}`).join('\n')}`;
 
     try {
       const aiResponse = await getGroqCompletion(prompt);
@@ -83,7 +85,16 @@ const Chatbot = () => {
                       : "bg-muted"
                   )}
                 >
-                  <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                  {message.role === "assistant" ? (
+                    <ReactMarkdown
+                      className="prose prose-sm dark:prose-invert max-w-none"
+                      remarkPlugins={[remarkGfm]}
+                    >
+                      {message.content}
+                    </ReactMarkdown>
+                  ) : (
+                    <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                  )}
                 </div>
               </div>
             ))}
