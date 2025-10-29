@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { showError } from "@/utils/toast";
 import { LoaderCircle, Image as ImageIcon } from "lucide-react";
-import { Image as PollinationsImage } from "@pollinations/react";
+import PollinationsImage from "@pollinations/react";
 
 const ImageGenerator = () => {
   const [prompt, setPrompt] = useState("");
