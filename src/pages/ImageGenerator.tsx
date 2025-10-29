@@ -5,7 +5,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { showError, showSuccess } from "@/utils/toast";
 import { LoaderCircle, Image as ImageIcon } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+
+// AVISO: A chave de API está exposta no código do cliente.
+// Isso não é seguro para produção. Use apenas para testes locais.
+const GOOGLE_AI_API_KEY = "AIzaSyAGsM7N3HHB5YctX4ERDMvKrhTV98JtlyY";
+
+// IMPORTANTE: Este deve ser o seu ID de projeto do Google Cloud.
+const GOOGLE_CLOUD_PROJECT_ID = "vucfaxjhxuvwswwytbwt"; 
+const GOOGLE_AI_API_URL = `https://us-central1-aiplatform.googleapis.com/v1/projects/${GOOGLE_CLOUD_PROJECT_ID}/locations/us-central1/publishers/google/models/imagegeneration:predict`;
 
 const ImageGenerator = () => {
   const [loading, setLoading] = useState(false);
@@ -22,19 +29,34 @@ const ImageGenerator = () => {
     setImageUrl("");
 
     try {
-      const { data, error } = await supabase.functions.invoke("generate-image", {
-        body: { prompt },
+      const response = await fetch(GOOGLE_AI_API_URL, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${GOOGLE_AI_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          instances: [{ prompt }],
+          parameters: {
+            sampleCount: 1,
+          },
+        }),
       });
 
-      if (error) {
-        throw new Error(error.message);
+      if (!response.ok) {
+        const errorBody = await response.json();
+        console.error("Google AI API Error:", errorBody);
+        const errorMessage = errorBody?.error?.message || "Falha ao gerar a imagem na API do Google AI.";
+        throw new Error(errorMessage);
       }
 
-      if (data.imageBase64) {
-        setImageUrl(`data:image/png;base64,${data.imageBase64}`);
+      const data = await response.json();
+
+      if (data.predictions && data.predictions[0]?.bytesBase64Encoded) {
+        setImageUrl(`data:image/png;base64,${data.predictions[0].bytesBase64Encoded}`);
         showSuccess("Imagem gerada com sucesso!");
       } else {
-        throw new Error(data.error || "A resposta da API não continha uma imagem.");
+        throw new Error("A resposta da API não continha uma imagem.");
       }
 
     } catch (err) {
