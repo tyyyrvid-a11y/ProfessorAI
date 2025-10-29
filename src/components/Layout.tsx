@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { Book, BotMessageSquare, FileQuestion, Languages, Sparkles } from "lucide-react";
+import { Book, BotMessageSquare, FileQuestion, Languages, Sparkles, GraduationCap } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navigation = [
@@ -16,8 +16,10 @@ export function Layout() {
       <aside className="w-64 flex-shrink-0 border-r bg-gray-50">
         <div className="flex h-full flex-col">
           <div className="p-4">
-            <h2 className="text-xl font-bold">Ferramentas de IA</h2>
-            <p className="text-sm text-gray-500">para Professores</p>
+            <div className="flex items-center gap-2">
+              <GraduationCap className="h-8 w-8 text-primary" />
+              <h2 className="text-xl font-bold">Professor Toolkit</h2>
+            </div>
           </div>
           <nav className="flex-1 space-y-1 p-2">
             {navigation.map((item) => (
