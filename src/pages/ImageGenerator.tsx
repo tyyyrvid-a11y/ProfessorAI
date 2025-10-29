@@ -52,7 +52,7 @@ const ImageGenerator = () => {
                 <Label htmlFor="prompt">Prompt</Label>
                 <Input 
                   id="prompt" 
-                  placeholder="Ex: Um gato astronauta flutuando no espaço" 
+                  placeholder="Ex: Neuronios" 
                   value={prompt} 
                   onChange={(e) => setPrompt(e.target.value)} 
                   required 
