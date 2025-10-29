@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { Book, BotMessageSquare, FileQuestion, Languages, Sparkles, Image } from "lucide-react";
+import { Book, BotMessageSquare, FileQuestion, Languages, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navigation = [
@@ -8,7 +8,6 @@ const navigation = [
   { name: "Tradutor", href: "/translator", icon: Languages },
   { name: "Chatbot para Professores", href: "/chatbot", icon: BotMessageSquare },
   { name: "Gerador de Atividades", href: "/activity-generator", icon: Sparkles },
-  { name: "Gerador de Imagens", href: "/image-generator", icon: Image },
 ];
 
 export function Layout() {

@@ -10,7 +10,6 @@ import LessonPlanGenerator from "./pages/LessonPlanGenerator";
 import Translator from "./pages/Translator";
 import Chatbot from "./pages/Chatbot";
 import ActivityGenerator from "./pages/ActivityGenerator";
-import ImageGenerator from "./pages/ImageGenerator";
 
 const queryClient = new QueryClient();
 
@@ -27,7 +26,6 @@ const App = () => (
             <Route path="translator" element={<Translator />} />
             <Route path="chatbot" element={<Chatbot />} />
             <Route path="activity-generator" element={<ActivityGenerator />} />
-            <Route path="image-generator" element={<ImageGenerator />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
