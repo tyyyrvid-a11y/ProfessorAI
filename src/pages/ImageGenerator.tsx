@@ -8,7 +8,7 @@ import { LoaderCircle, Image as ImageIcon } from "lucide-react";
 
 // AVISO: A chave de API está exposta no código do cliente.
 // Isso não é seguro para produção. Use apenas para testes locais.
-const GOOGLE_AI_API_KEY = "AIzaSyAGsM7N3HHB5YctX4ERDMvKrhTV98JtlyY";
+const GOOGLE_AI_API_KEY = "AIzaSyDqlQeJvtk2ym1BpzoAd69eEaQb4M7RHBA";
 
 // IMPORTANTE: Este deve ser o seu ID de projeto do Google Cloud.
 const GOOGLE_CLOUD_PROJECT_ID = "vucfaxjhxuvwswwytbwt"; 
